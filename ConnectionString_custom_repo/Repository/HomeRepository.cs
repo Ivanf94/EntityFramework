@@ -27,5 +27,21 @@ namespace ConnectionString_custom_repo.Repository
                 return false;
             }
         }
+
+        public bool CheckNewConnection()
+        {
+            try
+            {
+                using(SqlConnection con = new SqlConnection(_configuration.GetConnectionString("NotAvailable")))
+                {
+                    con.Open();
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

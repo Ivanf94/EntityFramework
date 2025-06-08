@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic_empty", "Basic_empty\Basic_empty.csproj", "{723F06A7-F2BB-4F34-BB1D-3656E9EE33E9}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionString_appsettings", "ConnectionString_appsettings\ConnectionString_appsettings.csproj", "{ACB60222-51B1-4887-93FE-286641819763}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionString_custom_repo", "ConnectionString_custom_repo\ConnectionString_custom_repo.csproj", "{CBD6852C-2C8F-4DAE-B1C4-338BF3F5DF84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Racuni", "Racuni\Racuni.csproj", "{E1054905-08AB-45AF-AE0E-B412A0F7074B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CBD6852C-2C8F-4DAE-B1C4-338BF3F5DF84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBD6852C-2C8F-4DAE-B1C4-338BF3F5DF84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBD6852C-2C8F-4DAE-B1C4-338BF3F5DF84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1054905-08AB-45AF-AE0E-B412A0F7074B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1054905-08AB-45AF-AE0E-B412A0F7074B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1054905-08AB-45AF-AE0E-B412A0F7074B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1054905-08AB-45AF-AE0E-B412A0F7074B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

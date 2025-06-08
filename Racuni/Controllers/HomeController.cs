@@ -1,29 +1,33 @@
 using System.Diagnostics;
-using ConnectionString_custom_repo.Models;
 using Microsoft.AspNetCore.Mvc;
-using ConnectionString_custom_repo.Repository;
+using Racuni.Models;
+using Racuni.Repository;
 
-namespace ConnectionString_custom_repo.Controllers
+namespace Racuni.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        HomeRepository _repo;
+        private readonly IConfiguration _configuration;
+        private InvoiceRepository _repo;
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
-            _repo = new HomeRepository(configuration);
             _logger = logger;
+            _configuration = configuration;
+            _repo = new InvoiceRepository(configuration);
         }
 
         public IActionResult Index()
         {
-            bool check = _repo.CheckExistingConnection();
-            ViewBag.Message = (check == true) ? "Veza uspostavljena" : "Veza nije uspostavljena";
-            check = _repo.CheckNewConnection();
-            ViewBag.Message2 = (check == true) ? "Nova veza uspostavljena" : "Nova veza nije uspostavljena";
-            return View();
+            List<Invoice> invoices = _repo.GetInvoices();
+            return View(invoices);
         }
 
+        public IActionResult Details(int id)
+        {
+            Invoice invoice = _repo.GetInvoiceByNumber(id);
+            return View(invoice);
+        }
         public IActionResult Privacy()
         {
             return View();
