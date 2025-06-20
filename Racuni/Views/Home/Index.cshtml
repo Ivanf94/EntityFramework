@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="NewInvoice">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -39,7 +39,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { id=item.InvoiceNumber }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "DeleteInvoice", new { id = item.InvoiceNumber })
             </td>
         </tr>
 }

@@ -44,7 +44,7 @@ namespace Racuni.Repository
                     Invoice inv = new Invoice();
                     inv.InvoiceNumber = (int)reader["InvoiceNumber"];
                     inv.DateOfIssue = (DateTime)reader["DateOfIssue"];
-                    inv.InvoiceItems = GetInvoiceItemsByIncoiceNumber(inv.InvoiceNumber);
+                    inv.InvoiceItems = GetInvoiceItemsByInvoiceNumber(inv.InvoiceNumber);
 
                     invoices.Add(inv);
                 }
@@ -60,7 +60,7 @@ namespace Racuni.Repository
             return invoices;
         }
 
-        public List<InvoiceItem> GetInvoiceItemsByIncoiceNumber(int invoiceNumber)
+        public List<InvoiceItem> GetInvoiceItemsByInvoiceNumber(int invoiceNumber)
         {
             List<InvoiceItem> items = new List<InvoiceItem>();
             try
@@ -118,7 +118,7 @@ namespace Racuni.Repository
                 {
                     invoice.InvoiceNumber = (int)reader["InvoiceNumber"];
                     invoice.DateOfIssue = (DateTime)reader["DateOfIssue"];
-                    invoice.InvoiceItems = GetInvoiceItemsByIncoiceNumber(invoice.InvoiceNumber);
+                    invoice.InvoiceItems = GetInvoiceItemsByInvoiceNumber(invoice.InvoiceNumber);
                 }
 
                 reader.Close();
@@ -133,14 +133,78 @@ namespace Racuni.Repository
         }
         public object CreateNewInvoice(Invoice new_invoice)
         {
+            try
+            {
+                using(SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = connection;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "INSERT INTO Invoices (DateOfIssue) output INSERTED.InvoiceNumber VALUES (@DateOfIssue)";
+                    cmd.Parameters.AddWithValue("@DateOfIssue", new_invoice.DateOfIssue);
+
+                    connection.Open();
+
+                    return cmd.ExecuteScalar();
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+
             return null;
         }
         public object CreateNewInvoiceItem(InvoiceItem new_invoiceItem, int invoice_num)
         {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = connection;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "INSERT INTO InvoiceItem (InvoiceNumber, Title, Quantity, Price) VALUES(@InvoiceNumber, @Title, @Quantity, @Price)";
+                    cmd.Parameters.AddWithValue("@InvoiceNumber", invoice_num);
+                    cmd.Parameters.AddWithValue("@Title", new_invoiceItem.Title);
+                    cmd.Parameters.AddWithValue("@Quantity", new_invoiceItem.Quantity);
+                    cmd.Parameters.AddWithValue("@Price", new_invoiceItem.Price);
+
+                    connection.Open();
+                    int created_invoice_item = cmd.ExecuteNonQuery();
+                    return created_invoice_item;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
             return null;
         }
         public void DeleteInvoice(int invoice_number)
         {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = connection;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "DELETE FROM InvoiceItem WHERE InvoiceNumber=@InvoiceNumber";
+                    cmd.Parameters.AddWithValue("@InvoiceNumber", invoice_number);
+
+                    SqlCommand cmd2 = new SqlCommand("DELETE FROM Invoices WHERE InvoiceNumber=@InvoiceNumber",connection);
+                    cmd2.Parameters.AddWithValue("@InvoiceNumber", invoice_number);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd2.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
 
         }
     }
